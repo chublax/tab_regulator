@@ -1,0 +1,68 @@
+Browser Tabs Export
+Generated: 2025-09-02 13:07:16
+Total tabs: 19
+================================================================================
+
+BRAVE TABS (16 tabs)
+----------------------------------------
+  1. YouTube
+     https://www.youtube.com/
+
+  2. NOBODY KNOWS THIS ABOUT AI? - YouTube
+     https://www.youtube.com/shorts/7wfAcn9BJ9I
+
+  3. Is This Australia’s Most Easily Hacked Gift Card? (The Card Network) - YouTube
+     https://www.youtube.com/watch?v=oBarXDL23hs
+
+  4. The Next Epoch Of Tesla Stock (is about to begin) - YouTube
+     https://www.youtube.com/watch?v=n5ZVkNaGaxU
+
+  5. We Tested the First-Ever Moon Truck - YouTube
+     https://www.youtube.com/watch?v=qmQ_lQOBdq4
+
+  6. YouTube
+     https://www.youtube.com/
+
+  7. I’m the only one who believes in you 🙏🏻 #ironman #robertdowneyjr - YouTube
+     https://www.youtube.com/shorts/6SLpOFkZo64
+
+  8. YouTube
+     https://www.youtube.com/
+
+  9. YouTube
+     https://www.youtube.com/
+
+ 10. thank you for saving my life 🙏🏻 #ironman #robertdowneyjr - YouTube
+     https://www.youtube.com/shorts/GXxuKutgpUY
+
+ 11. YouTube
+     https://www.youtube.com/
+
+ 12. Computer science students need to hear this - YouTube
+     https://www.youtube.com/watch?v=Rb8e1H4hMFQ
+
+ 13. Dashboard | UNSW
+     https://moodle.telt.unsw.edu.au/my/
+
+ 14. chublax/tab_regulator
+     https://github.com/chublax/tab_regulator
+
+ 15. what is a wifi pineapple - Brave Search
+     https://search.brave.com/search?q=what+is+a+wifi+pineapple&source=desktop&summary=1&conversation=d64b96bc692f69d015398d
+
+ 16. New Tab
+     chrome://newtab/
+
+
+SAFARI TABS (3 tabs)
+----------------------------------------
+  1. YouTube
+     https://www.youtube.com/
+
+  2. Deep Dive into LLMs like ChatGPT - YouTube
+     https://www.youtube.com/watch?v=7xTGNNLPyMI
+
+  3. Apple
+     https://www.apple.com/
+
+

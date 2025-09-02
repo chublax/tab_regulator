@@ -1,0 +1,15 @@
+# Tab Regulator Dependencies
+# No external dependencies required - uses built-in Python libraries only!
+# 
+# The script uses:
+# - subprocess (built-in) - for running AppleScript commands
+# - json (built-in) - for JSON export functionality  
+# - sqlite3 (built-in) - for potential browser database access
+# - pathlib (built-in) - for file path handling
+# - platform (built-in) - for OS detection
+# - datetime (built-in) - for timestamps
+# - argparse (built-in) - for command line arguments
+#
+# Optional: If you want to extend this with Selenium for more advanced browser automation:
+# selenium>=4.15.0
+# webdriver-manager>=4.0.1
