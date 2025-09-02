@@ -325,40 +325,141 @@ class TabExtractor:
         print(f"✓ Successfully extracted tabs from: {', '.join(browsers_found)}")
         return True
     
+    def load_previous_tabs(self, filename):
+        """Load previous tabs from file to compare"""
+        if not os.path.exists(filename):
+            return set()
+        
+        try:
+            previous_urls = set()
+            with open(filename, 'r', encoding='utf-8') as f:
+                content = f.read()
+                # Extract URLs from previous content
+                import re
+                url_pattern = r'https?://[^\s\n]+'
+                urls = re.findall(url_pattern, content)
+                previous_urls.update(urls)
+            return previous_urls
+        except Exception as e:
+            print(f"Warning: Could not read previous tabs: {e}")
+            return set()
+
     def save_to_file(self, filename=None):
-        """Save extracted tabs to a text file"""
+        """Save extracted tabs to a daily file with incremental updates"""
         if not self.tabs:
             print("No tabs to save!")
             return False
         
+        now = datetime.now()
+        
         if filename is None:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"browser_tabs_{timestamp}.txt"
+            # Use daily filename format: tabs_YYYY-MM-DD.txt
+            date_str = now.strftime("%Y-%m-%d")
+            filename = f"tabs_{date_str}.txt"
+        
+        # Load previous tabs to compare
+        previous_urls = self.load_previous_tabs(filename)
+        
+        # Create a more sophisticated comparison
+        # Filter out common "empty" tabs that shouldn't be tracked
+        ignored_urls = {
+            'chrome://newtab/',
+            'chrome-extension://',
+            'about:blank',
+            'edge://newtab/',
+            'safari://newtab/'
+        }
+        
+        # Filter for genuinely new/interesting tabs
+        current_urls = {tab['url'] for tab in self.tabs 
+                       if not any(ignored in tab['url'] for ignored in ignored_urls)}
+        new_urls = current_urls - previous_urls
+        
+        # Get tabs that are genuinely new (excluding boring ones)
+        new_tabs = [tab for tab in self.tabs 
+                   if tab['url'] in new_urls and 
+                   not any(ignored in tab['url'] for ignored in ignored_urls)]
+        
+        # Count filtered/ignored tabs for reporting
+        ignored_tabs = [tab for tab in self.tabs 
+                       if any(ignored in tab['url'] for ignored in ignored_urls)]
+        
+        # Count different types of ignored tabs
+        blank_tab_count = len([tab for tab in ignored_tabs 
+                             if 'newtab' in tab['url'] or 'about:blank' in tab['url']])
+        extension_tab_count = len([tab for tab in ignored_tabs 
+                                 if 'chrome-extension://' in tab['url']])
+        other_ignored_count = len(ignored_tabs) - blank_tab_count - extension_tab_count
         
         try:
-            with open(filename, 'w', encoding='utf-8') as f:
-                f.write(f"Browser Tabs Export\n")
-                f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-                f.write(f"Total tabs: {len(self.tabs)}\n")
-                f.write("=" * 80 + "\n\n")
-                
-                # Group by browser
-                browsers = {}
-                for tab in self.tabs:
-                    browser = tab['browser']
-                    if browser not in browsers:
-                        browsers[browser] = []
-                    browsers[browser].append(tab)
-                
-                for browser, tabs in browsers.items():
-                    f.write(f"{browser.upper()} TABS ({len(tabs)} tabs)\n")
-                    f.write("-" * 40 + "\n")
-                    for i, tab in enumerate(tabs, 1):
-                        f.write(f"{i:3d}. {tab['title']}\n")
-                        f.write(f"     {tab['url']}\n\n")
-                    f.write("\n")
+            # Check if file exists to determine if we're appending
+            file_exists = os.path.exists(filename)
             
-            print(f"✓ Tabs saved to: {filename}")
+            with open(filename, 'a' if file_exists else 'w', encoding='utf-8') as f:
+                if not file_exists:
+                    # First run of the day - create header
+                    f.write(f"Daily Browser Tabs Log - {now.strftime('%A, %B %d, %Y')}\n")
+                    f.write("=" * 80 + "\n\n")
+                
+                if new_tabs:
+                    # Add timestamp separator only if there are new tabs
+                    f.write(f"{'=' * 20} {now.strftime('%H:%M:%S')} {'=' * 20}\n")
+                    f.write(f"Run at: {now.strftime('%Y-%m-%d %H:%M:%S')}\n")
+                    f.write(f"New/Changed tabs: {len(new_tabs)} (out of {len(self.tabs)} total)\n")
+                    f.write("-" * 60 + "\n")
+                    
+                    # Group new tabs by browser
+                    browsers = {}
+                    for tab in new_tabs:
+                        browser = tab['browser']
+                        if browser not in browsers:
+                            browsers[browser] = []
+                        browsers[browser].append(tab)
+                    
+                    for browser, tabs in browsers.items():
+                        if tabs:  # Only show browsers with new tabs
+                            f.write(f"\n{browser.upper()} - {len(tabs)} new tabs:\n")
+                            for i, tab in enumerate(tabs, 1):
+                                f.write(f"  {i:2d}. {tab['title']}\n")
+                                f.write(f"      {tab['url']}\n")
+                    
+                    f.write(f"\n")
+                else:
+                    # Just add a simple timestamp for no-new-tabs runs
+                    f.write(f"[{now.strftime('%H:%M:%S')}] No new tabs (all {len(self.tabs)} tabs already recorded)\n")
+            
+            # Enhanced reporting
+            content_tabs = len(self.tabs) - len(ignored_tabs)
+            
+            if new_tabs:
+                print(f"✅ Found {len(new_tabs)} new tabs out of {len(self.tabs)} total")
+                if ignored_tabs:
+                    ignored_details = []
+                    if blank_tab_count > 0:
+                        ignored_details.append(f"{blank_tab_count} blank tabs")
+                    if extension_tab_count > 0:
+                        ignored_details.append(f"{extension_tab_count} extension tabs")
+                    if other_ignored_count > 0:
+                        ignored_details.append(f"{other_ignored_count} other ignored tabs")
+                    
+                    if ignored_details:
+                        print(f"ℹ️  Ignored: {', '.join(ignored_details)}")
+                print(f"✅ Appended to daily file: {filename}")
+            else:
+                print(f"ℹ️  No new tabs found (all {content_tabs} content tabs were already recorded today)")
+                if ignored_tabs:
+                    ignored_details = []
+                    if blank_tab_count > 0:
+                        ignored_details.append(f"{blank_tab_count} blank tabs")
+                    if extension_tab_count > 0:
+                        ignored_details.append(f"{extension_tab_count} extension tabs")
+                    if other_ignored_count > 0:
+                        ignored_details.append(f"{other_ignored_count} other ignored tabs")
+                    
+                    if ignored_details:
+                        print(f"ℹ️  Currently ignoring: {', '.join(ignored_details)}")
+                print(f"✅ Updated timestamp in: {filename}")
+            
             return True
             
         except Exception as e:

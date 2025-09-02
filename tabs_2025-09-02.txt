@@ -1,0 +1,53 @@
+Daily Browser Tabs Log - Tuesday, September 02, 2025
+================================================================================
+
+==================== 13:48:09 ====================
+Run at: 2025-09-02 13:48:09
+New/Changed tabs: 20 (out of 22 total)
+------------------------------------------------------------
+
+BRAVE - 17 new tabs:
+   1. ChatGPT
+      https://chatgpt.com/
+   2. Dashboard | UNSW
+      https://moodle.telt.unsw.edu.au/my/
+   3. chublax/tab_regulator
+      https://github.com/chublax/tab_regulator
+   4. YouTube
+      https://www.youtube.com/
+   5. YouTube
+      https://www.youtube.com/
+   6. NOBODY KNOWS THIS ABOUT AI? - YouTube
+      https://www.youtube.com/shorts/7wfAcn9BJ9I
+   7. Is This Australia’s Most Easily Hacked Gift Card? (The Card Network) - YouTube
+      https://www.youtube.com/watch?v=oBarXDL23hs
+   8. The Next Epoch Of Tesla Stock (is about to begin) - YouTube
+      https://www.youtube.com/watch?v=n5ZVkNaGaxU
+   9. We Tested the First-Ever Moon Truck - YouTube
+      https://www.youtube.com/watch?v=qmQ_lQOBdq4
+  10. YouTube
+      https://www.youtube.com/
+  11. I’m the only one who believes in you 🙏🏻 #ironman #robertdowneyjr - YouTube
+      https://www.youtube.com/shorts/6SLpOFkZo64
+  12. YouTube
+      https://www.youtube.com/
+  13. YouTube
+      https://www.youtube.com/
+  14. thank you for saving my life 🙏🏻 #ironman #robertdowneyjr - YouTube
+      https://www.youtube.com/shorts/GXxuKutgpUY
+  15. YouTube
+      https://www.youtube.com/
+  16. Computer science students need to hear this - YouTube
+      https://www.youtube.com/watch?v=Rb8e1H4hMFQ
+  17. what is a wifi pineapple - Brave Search
+      https://search.brave.com/search?q=what+is+a+wifi+pineapple&source=desktop&summary=1&conversation=d64b96bc692f69d015398d
+
+SAFARI - 3 new tabs:
+   1. YouTube
+      https://www.youtube.com/
+   2. Deep Dive into LLMs like ChatGPT - YouTube
+      https://www.youtube.com/watch?v=7xTGNNLPyMI
+   3. Apple
+      https://www.apple.com/
+
+[13:50:43] No new tabs (all 23 tabs already recorded)
